@@ -78,11 +78,11 @@ if(isset($_GET["logout"]) && $_GET["logout"]==1)
               console.log(result);
               if(result == 'true')
               {
-                $(".usernameFeedback").html("<p id='available'>Yup :), username is available!</p>");                
+                $(".usernameFeedback").html("<div class='blockinput' style='color:green' id='available'  >username is available</div>");                
               }
               else
               {
-                $(".usernameFeedback").html("<p id='notavailable'>:( sorry, username is already taken!</p>");
+                $(".usernameFeedback").html("<div class='blockinput' style='color:red' id='notavailable'>:( sorry, username is already taken!</div>");
               }
             });
 
@@ -95,26 +95,7 @@ if(isset($_GET["logout"]) && $_GET["logout"]==1)
     });
   });
   </script>
-</head>
-<body><?php
-if(!isset($_SESSION['logged_in']))
-{
-    echo '<div id="results">';
-    echo '<!-- results will be placed here -->';
-    echo '</div>';
-    echo '<div id="LoginButton">';
-    echo '</div>';
-
-
-}
-else
-{
-  echo 'Hi '. $_SESSION['user_name'].'! You are Logged in to facebook, <a href="?logout=1">Log Out</a>.';
-}
-?>
-
-<div id="fb-root"></div>
-<script type="text/javascript">
+  <script type="text/javascript">
 window.fbAsyncInit = function() {
   FB.init({
     appId: '<?php echo $appId; ?>',
@@ -142,8 +123,9 @@ function CallAfterLogin(){
           ResetAnimate();
 
         }else{
-          window.location = "index_bezoeker.php";
           
+          AjaxResponse();
+
         }
         
       });
@@ -156,7 +138,7 @@ function CallAfterLogin(){
 function AjaxResponse()
 {
  //Load data from the server and place the returned HTML into the matched element using jQuery Load().
-   $(   "#results" ).load( "process_facebook.php" );
+   $("#results").load( "process_facebook.php" );
 
 }
 
@@ -175,6 +157,26 @@ function ResetAnimate()
 }
 
 </script>
+</head>
+<body><?php
+if(!isset($_SESSION['logged_in']))
+{
+    echo '<div id="results">';
+    echo '<!-- results will be placed here -->';
+    echo '</div>';
+    echo '<div id="LoginButton">';
+    echo '</div>';
+
+
+}
+else
+{
+  echo 'Hi '. $_SESSION['user_name'].'! You are Logged in to facebook, <a href="?logout=1">Log Out</a>.';
+}
+?>
+
+<div id="fb-root"></div>
+
   <?php if (isset($feedback)): ?>
   <div class="feedback">
     <?php echo $feedback; ?>
@@ -182,11 +184,12 @@ function ResetAnimate()
   <?php endif;?>
   <nav>
     <?php if(isset($_SESSION['loggedin'])): ?>
-      <a href="logout.php">Logout</a>
+      
     <?php else: ?>
       <a href="login.php">Login</a>
     <?php endif; ?>
   </nav>
+
   <div class="login">
   <h1>Login here.</h1>
   <p>Control your digital restaurant</p>
@@ -194,6 +197,18 @@ function ResetAnimate()
     <div class="input">
       <div class="blockinput">
         <input type="text" placeholder="Username" name="loginname">
+      </div>
+      <div class="blockinput">
+        <?php
+          if(isset($error))
+          {
+            echo $error;
+          }
+          else
+          {
+            echo $feedback;
+          }
+        ?>
       </div>
       <div class="blockinput">
        <input type="password" placeholder="Password" name="loginpassword">
@@ -206,8 +221,7 @@ function ResetAnimate()
       </div>
     </div>
     <input type="submit" name="btnlogin" id="btnlogin" value="login" />
-    <br>
-    <a href="" rel="nofollow" class="fblogin-button" onClick="javascript:CallAfterLogin();return false;"></a>
+ 
   </form> 
   </div>
 
@@ -245,5 +259,6 @@ function ResetAnimate()
     <input type="submit" name="btnregister" id="btnregister" value="register" />
   </form> 
   </div>
+
 </body>
 </html>

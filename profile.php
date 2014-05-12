@@ -27,6 +27,16 @@
                                             </ul>
                             </div><!-- /.box-body -->
                         </div>
+                        <div class="box box-primary">
+                               <div class="box-body">
+                                    <ul class="todo-list">
+                                        <h3 class="box-title">Info gekozen restaurant</h3>
+                                        <?php 
+                                            $restaurants->getInfo(); 
+                                        ?>
+                                    </ul>
+                                </div><!-- /.box-body -->
+                        </div><!-- /.box -->
                         <div class="box box-info">
                             <div class="box-header">
                                 <h3 class="box-title">Aanmaak tafels voor je restaurant <?php echo $restaurant?></h3> 

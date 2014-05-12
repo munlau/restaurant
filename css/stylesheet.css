@@ -23,7 +23,7 @@ a{
   text-shadow: 0 1px 0 #FFF;
   max-width: 300px;
   margin: 0 auto;
-  margin-top: 200px;
+  margin-top: 50px;
   padding: 15px 40px 20px 40px;
   box-shadow: 0 0 3px #000;
 }
@@ -148,4 +148,3 @@ input[type="submit"]:active{
   border-radius: 5px;
   background-color: blue;
 }
-

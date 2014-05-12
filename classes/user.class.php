@@ -12,7 +12,12 @@ include_once ("db.class.php");
 		public function __set($p_sProperty, $p_vValue){
 			switch ($p_sProperty) {
 				case 'Username':
+				if(empty($p_vValue)){
+					throw new Exception ('please fill in your username');
+				}
+				else{
 					$this->m_sUsername=$p_vValue;
+				}
 				break;
 				case 'Voornaam':
 					$this->m_sVoornaam=$p_vValue;

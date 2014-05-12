@@ -24,11 +24,18 @@ if (isset($_POST['btnregister'])) {
 	}
 
 if (isset($_POST['btnlogin'])) {
+	try{
 	$user = new User();
 	$user -> Username = $_POST['loginname'];
 	$user -> Password = $_POST['loginpassword'];
 	$user -> Functie = $_POST['functie'];
 	$user -> canLogin();
+	}catch (Exception $e)
+	{
+		$error=$e->getMessage();
+	}
+
+	
 }
 
 

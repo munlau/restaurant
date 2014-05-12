@@ -1,5 +1,5 @@
 <?php
-	include_once("classes/Db.class.php");
+	include_once("classes/db.class.php");
 	Class Tafels
 	{
 		private $m_sAantal2;
