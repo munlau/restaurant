@@ -62,6 +62,32 @@ include_once ("db.class.php");
 		}
 	}
 
+	public function UsernameAvailable()
+	{
+		//checken of username al in de db zit
+		$db = new Db();
+		$sql = "select * from tblusers where us_username = '".$db->conn->real_escape_string($this->Username)."';";
+		$result = $db->conn->query($sql);
+		if($result)
+		{
+			if(mysqli_num_rows($result) === 0)
+			{
+				$available = true;
+				
+
+			}
+			else
+			{
+				$available = false;
+				$this->errors['errorAvailable'] = 'We kunnen deze username niet opslagen!';
+			}
+		}
+
+		return $available;
+
+
+	}
+
 	public function Save(){
 			$db = new Db();
 			$salt = "fsldkfjsdmlfksdlmfk65463321!lksdfjlksdjf+65+65%é#fsdlkfj@";
@@ -83,11 +109,22 @@ include_once ("db.class.php");
 			$result = $db->conn->query($check);
 				if($result->num_rows == 0)
 				{
-					$db->conn->query($sql);
-					$_SESSION['loggedin'] = true;
-					$_SESSION['name'] = $this->Username;
-					$_SESSION['functie'] = $this->Functie;
-					header("Location: index.php");
+					if ($this->Functie == "houder")
+					{
+						$db->conn->query($sql);
+						$_SESSION['loggedin'] = true;
+						$_SESSION['name'] = $this->Username;
+						$_SESSION['functie'] = $this->Functie;
+						header("Location: index.php");
+					}
+					if ($this->Functie == "klant")
+					{
+						$db->conn->query($sql);
+						$_SESSION['loggedin'] = true;
+						$_SESSION['name'] = $this->Username;
+						$_SESSION['functie'] = $this->Functie;
+						header("Location: index_bezoeker.php");
+					}
 				}
 				else
 				{
@@ -113,10 +150,11 @@ include_once ("db.class.php");
 			$result=$db->conn->query($sql);
 			if($result->num_rows == 1)
 				{
-				$_SESSION['loggedin'] = true;
-				$_SESSION['name'] = $this -> Username;
-				$_SESSION['functie'] = $this-> Functie;
-				header("Location: index.php");
+						$_SESSION['loggedin'] = true;
+						$_SESSION['name'] = $this -> Username;
+						$_SESSION['functie'] = $this-> Functie;
+						header("Location: index.php");
+				
 				}
 		}	
 			

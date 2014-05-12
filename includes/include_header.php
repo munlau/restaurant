@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php 
+  include_once("login_logica.php");
+    if(!isset($_SESSION['name'])){
+        header ("Location: login.php");
+    }
+
+?><!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,18 +16,21 @@
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
         <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <!-- Morris chart -->
-        <link href="css/morris/morris.css" rel="stylesheet" type="text/css" />
         <!-- jvectormap -->
         <link href="css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
-        <!-- fullCalendar -->
-        <link href="css/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
-        <!-- Daterange picker -->
-        <link href="css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
         <!-- bootstrap wysihtml5 - text editor -->
         <link href="css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <script language="javascript" src="calendar/calendar.js"></script>
+
+        <style type="text/css">
+        body { font-size: 11px; font-family: "verdana"; }
+
+        pre { font-family: "verdana"; font-size: 10px; background-color: #FFFFCC; padding: 5px 5px 5px 5px; }
+        pre .comment { color: #008000; }
+        pre .builtin { color:#FF0000;  }
+        </style>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,11 +38,151 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript">
+        // CHECK VOORGERECHT
+        $(document).ready(function(){
+            console.log('ready');
+            $(".voorgerecht").on("blur", function(e){
+            //var clickedLink = $(this);
+            var gerechten = $(".voorgerecht").val();
+            console.log(gerechten);
+            $(".usernameFeedback").css("display","block");
+            $.ajax({
+                type: "POST",
+                url: "ajax/check_gerecht.php",
+                data: { gerechten: gerechten }
+            })
+                .done(function(result) {
+                console.log(result);
+                if(result == 'true')
+                {
+                    $(".voorgerechtFeedback").html("<p id='available'>Yup :), voorgerecht is available!</p>");                
+                }
+                else
+                {
+                    $(".voorgerechtFeedback").html("<p id='notavailable'>:( sorry, voorgerecht is already taken!</p>");
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        $(".voorgerecht").on("focus", function(e){
+        $(".feedback").css("display","none");
+        $(".error").css("display","none");
+        });
+
+        // CHECK HOOFDGERECHT
+            console.log('ready');
+            $(".hoofdgerecht").on("blur", function(e){
+            //var clickedLink = $(this);
+            var gerechten = $(".hoofdgerecht").val();
+            console.log(gerechten);
+            $(".usernameFeedback").css("display","block");
+            $.ajax({
+                type: "POST",
+                url: "ajax/check_gerecht.php",
+                data: { gerechten: gerechten }
+            })
+                .done(function(result) {
+                console.log(result);
+                if(result == 'true')
+                {
+                    $(".hoofdgerechtFeedback").html("<p id='available'>Yup :), hoofdgerecht is available!</p>");                
+                }
+                else
+                {
+                    $(".hoofdgerechtFeedback").html("<p id='notavailable'>:( sorry, hoofdgerecht is already taken!</p>");
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        $(".hoofdgerecht").on("focus", function(e){
+        $(".feedback").css("display","none");
+        $(".error").css("display","none");
+        });
+
+        // CHECK NAGERECHT
+
+        console.log('ready');
+            $(".nagerecht").on("blur", function(e){
+            //var clickedLink = $(this);
+            var gerechten = $(".nagerecht").val();
+            console.log(gerechten);
+            $(".usernameFeedback").css("display","block");
+            $.ajax({
+                type: "POST",
+                url: "ajax/check_gerecht.php",
+                data: { gerechten: gerechten }
+            })
+                .done(function(result) {
+                console.log(result);
+                if(result == 'true')
+                {
+                    $(".nagerechtFeedback").html("<p id='available'>Yup :), nagerecht is available!</p>");                
+                }
+                else
+                {
+                    $(".nagerechtFeedback").html("<p id='notavailable'>:( sorry, nagerecht is already taken!</p>");
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        $(".nagerecht").on("focus", function(e){
+        $(".feedback").css("display","none");
+        $(".error").css("display","none");
+        });
+
+        // CHECK DRANK
+
+        console.log('ready');
+            $(".drank").on("blur", function(e){
+            //var clickedLink = $(this);
+            var gerechten = $(".drank").val();
+            console.log(gerechten);
+            $(".usernameFeedback").css("display","block");
+            $.ajax({
+                type: "POST",
+                url: "ajax/check_gerecht.php",
+                data: { gerechten: gerechten }
+            })
+                .done(function(result) {
+                console.log(result);
+                if(result == 'true')
+                {
+                    $(".drankFeedback").html("<p id='available'>Yup :), drank is available!</p>");                
+                }
+                else
+                {
+                    $(".drankFeedback").html("<p id='notavailable'>:( sorry, drank is already taken!</p>");
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        $(".drank").on("focus", function(e){
+        $(".feedback").css("display","none");
+        $(".error").css("display","none");
+        });
+
+        // VOORGERECHT UPDATEN
+
+     
+
+        });
+        </script>
     </head>
     <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="index.html" class="logo">
+            <a href="index.php" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 Restaurant App
             </a>
@@ -56,41 +205,31 @@
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
-                        </div>
                         <div class="pull-left info">
-                            <p>Hello, Jane</p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <p>Hello, <?php echo $_SESSION['name'] ?></p>
                         </div>
                     </div>
                    
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="index.html">
-                                <i class="fa fa-dashboard"></i> <span>Home</span>
+                            <a href="index.php">
+                             <span>Home</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="tafels.php">
-                                <i class="fa fa-dashboard"></i> <span>Tafels</span>
+                            <a href="reservatie.php">
+                             <span>Reserveren</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="reservaties.php">
-                                <i class="fa fa-dashboard"></i> <span>Reservaties</span>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="menus.php">
-                                <i class="fa fa-dashboard"></i> <span>Menu beheren</span>
+                            <a href="menu.php">
+                             <span>Menu beheren</span>
                             </a>
                         </li>
                         <li class="active">
                             <a href="logout.php">
-                                <i class="fa fa-dashboard"></i> <span>Logout</span>
+                             <span>Logout</span>
                             </a>
                         </li>
                     </ul>

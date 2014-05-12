@@ -1,8 +1,8 @@
 <?php
-    include_once("includes/include_header_bezoeker.php");
-    include_once("includes/include_footer_bezoeker.php");
-    include_once("restaurant_logica.php");
-    $restaurants = new Restaurant();
+    include_once("includes/include_header.php");
+    include_once("includes/include_footer.php");
+    include_once("reserveer_logica.php");
+    $restaurants = new Tafels();
 ?>
 
             <!-- Right side column. Contains the navbar and content of the page -->
@@ -11,10 +11,10 @@
                 <section class="content-header">
                     <h1>
                         Beheerscherm
-                        <small>restaurants</small>
+                        <small>reservaties</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="index.php">Home</a></li>
+                        <li><a href="reservatie.php">Reservatie</a></li>
                         <li class="active">Dashboard</li>
                     </ol>
                 </section>
@@ -24,13 +24,14 @@
                     <div class="box box-primary">
                                <div class="box-body">
                                     <ul class="todo-list">
-                                        <h3 class="box-title">Lijst van alle restaurants</h3>
+                                        <h3 class="box-title">Beheer reservaties</h3>
                                         <?php 
-                                            $restaurants->getAllRestaurantsBezoeker(); 
+                                            $restaurants->getAllRestaurantsReserveren(); 
                                         ?>
                                     </ul>
                                 </div><!-- /.box-body -->
-                    </div><!-- /.box -->
+                               
+
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
